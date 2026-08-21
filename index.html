@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>OAutoScroll</title>
+    
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+
+    <script type="text/javascript" src="./../v1/plugins.js"></script>
+    <script type="module" src="scripts/plugin.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- Первый элемент: сообщение о первом открытии -->
+        <div id="scrollInfoMessage" class="message info">
+            ℹ️ Документ открыт впервые, сохраненная позиция не найдена
+        </div>
+
+        <!-- Кнопка: Сохранить страницу -->
+        <button id="saveScrollBtn" class="btn btn-primary">💾 Сохранить текущую позицию</button>
+
+        <!-- Кнопка: Переместиться на нужную позицию -->
+        <button id="moveScrollBtn" class="btn btn-secondary">📍 Перейти к сохраненной позиции</button>
+
+        <!-- Настройки (Чекбоксы) -->
+        <div class="settings-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="moveOnOpenCheckbox">
+                <span>Перемещаться при открытии</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="saveOnCloseCheckbox">
+                <span>Сохранять позицию при закрытии</span>
+            </label>
+        </div>
+
+        <hr>
+
+        <!-- Статистика по localStorage -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">🔑 Ключей с префиксом <code>oautoscroll_plugin_</code>:</span>
+                <span id="keysCount" class="stat-value">0</span>
+            </div>
+        </div>
+
+        <!-- Кнопка: Удалить все записи -->
+        <button id="clearAllBtn" class="btn btn-danger">🗑️ Удалить все записи</button>
+    </div>
+</body>
+
+</html>

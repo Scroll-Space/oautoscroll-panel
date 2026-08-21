@@ -1,0 +1,15 @@
+{
+  "name": "OAutoScroll Panel",
+  "guid": "asc.{ca39b178-83ef-4074-b248-108d0634a4db}",
+  "version": "1.0.0",
+  "variations": [
+    {
+      "description": "OAutoScroll Panel",
+      "url": "index.html",
+      "icons": "resources/icon.svg",
+      "isViewer": true,
+      "EditorsSupport": ["pdf"],
+      "type": "panel"
+    }
+  ]
+}

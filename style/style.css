@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   1. СВЕТЛАЯ ТЕМА (Нативные цвета ONLYOFFICE Light)
+   ========================================================= */
+:root {
+    --bg-color: #f4f4f4;
+    --text-color: #333333;
+
+    --card-bg: #ffffff;
+    --card-border: #d8d8d8;
+
+    --hr-color: #e0e0e0;
+
+    --code-bg: #e8e8e8;
+    --code-text: #444444;
+
+    /* Кнопка "Сохранить" (Синяя) */
+    --primary-bg: #3b82f6;
+    --primary-hover: #2563eb;
+
+    /* Кнопка "Перейти" (Изумрудно-зеленая) */
+    --secondary-bg: #10b981;
+    --secondary-hover: #059669;
+    --secondary-text: #ffffff;
+
+    /* Кнопка "Удалить" (Красная) */
+    --danger-bg: #ef4444;
+    --danger-hover: #dc2626;
+
+    --info-bg: #eef3f6;
+    --info-border: #829eaf;
+    --info-text: #4d5f6b;
+
+    --success-bg: #eef4ef;
+    --success-border: #849c88;
+    --success-text: #506054;
+
+    --checkbox-accent: #3b82f6;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================================
+   2. ТЕМНАЯ ТЕМА (Нативные цвета ONLYOFFICE Dark)
+   ========================================================= */
+[data-theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"] {
+    --bg-color: #3a3a3a !important; /* Нативный цвет фона левой панели */
+    --text-color: #e0e0e0 !important;
+
+    --card-bg: #2d2d2d !important; /* Цвет внутренних карточек/блоков */
+    --card-border: #4a4a4a !important;
+
+    --hr-color: #4f4f4f !important;
+
+    --code-bg: #222222 !important;
+    --code-text: #cccccc !important;
+
+    /* Кнопка "Сохранить" (Синяя) */
+    --primary-bg: #2563eb !important;
+    --primary-hover: #1d4ed8 !important;
+
+    /* Кнопка "Перейти" (Изумрудно-зеленая) */
+    --secondary-bg: #059669 !important;
+    --secondary-hover: #047857 !important;
+    --secondary-text: #ffffff !important;
+
+    /* Кнопка "Удалить" (Красная) */
+    --danger-bg: #dc2626 !important;
+    --danger-hover: #b91c1c !important;
+
+    --info-bg: #21323d !important;
+    --info-border: #4c697d !important;
+    --info-text: #d0e1ed !important;
+
+    --success-bg: #1c3628 !important;
+    --success-border: #059669 !important;
+    --success-text: #a7f3d0 !important;
+
+    --checkbox-accent: #3b82f6 !important;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* =========================================================
+   3. ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ
+   ========================================================= */
+html, body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    padding: 16px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+#app {
+    width: 100%;
+}
+
+/* =========================================================
+   4. ИНФОРМАЦИОННЫЕ СООБЩЕНИЯ
+   ========================================================= */
+.message {
+    padding: 11px 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.message.info {
+    background: var(--info-bg) !important;
+    border-left: 3px solid var(--info-border) !important;
+    color: var(--info-text) !important;
+}
+
+.message.success {
+    background: var(--success-bg) !important;
+    border-left: 3px solid var(--success-border) !important;
+    color: var(--success-text) !important;
+}
+
+/* =========================================================
+   5. КНОПКИ
+   ========================================================= */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.12s ease;
+}
+
+.btn-primary {
+    background: var(--primary-bg) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover) !important;
+}
+
+.btn-secondary {
+    background: var(--secondary-bg) !important;
+    border-color: transparent !important;
+    color: var(--secondary-text) !important;
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-hover) !important;
+}
+
+.btn-danger {
+    background: var(--danger-bg) !important;
+    color: #ffffff !important;
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover) !important;
+}
+
+/* =========================================================
+   6. КАРТОЧКИ И ГРУППЫ НАСТРОЕК
+   ========================================================= */
+.settings-group, .stats {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 4px;
+    padding: 7px 11px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+}
+
+/* =========================================================
+   7. КАСТОМНЫЕ ЧЕКБОКСЫ
+   ========================================================= */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 32px;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--text-color) !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label:not(:last-child) {
+    border-bottom: 1px solid var(--card-border) !important;
+}
+
+/* Настройки чекбокса для светлой темы */
+.checkbox-label input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+
+    border-radius: 3px;
+    border: 1.5px solid #888888 !important;
+    background-color: var(--card-bg) !important;
+
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Четкая рамка для темной темы */
+[data-theme="dark"] .checkbox-label input[type="checkbox"],
+html[data-theme="dark"] .checkbox-label input[type="checkbox"],
+body[data-theme="dark"] .checkbox-label input[type="checkbox"] {
+    border: 1.5px solid #888888 !important;
+}
+
+.checkbox-label:hover input[type="checkbox"] {
+    border-color: var(--checkbox-accent) !important;
+}
+
+/* Активное состояние (Checked) */
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: var(--checkbox-accent) !important;
+    border-color: var(--checkbox-accent) !important;
+}
+
+/* Отрисовка белой галочки внутри */
+.checkbox-label input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    width: 4px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* =========================================================
+   8. ЭЛЕМЕНТЫ СТАЦИОНАРНОЙ СТАТИСТИКИ И РАЗДЕЛИТЕЛИ
+   ========================================================= */
+hr {
+    border: none;
+    border-top: 1px solid var(--hr-color) !important;
+    margin: 15px 0;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 0;
+    font-size: 13px;
+}
+
+.stat-label {
+    color: var(--text-color) !important;
+}
+
+.stat-value {
+    flex-shrink: 0;
+    min-width: 26px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--code-bg) !important;
+    color: var(--code-text) !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+code {
+    background: var(--code-bg) !important;
+    color: var(--code-text) !important;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 11px;
+}
