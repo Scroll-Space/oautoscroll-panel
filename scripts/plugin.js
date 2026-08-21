@@ -7,7 +7,6 @@ const editorCtrl = new EditorController(window);
 const uiCtrl = new PluginUIController(window, plugStore, editorCtrl);
 
 window.Asc.plugin.init = function () {
-    console.log("🔄 AutoScroll Panel init");
     uiCtrl.initUI();
 };
 
