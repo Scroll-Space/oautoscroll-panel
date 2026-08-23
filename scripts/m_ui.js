@@ -16,8 +16,6 @@ export class PluginUIController {
     #el_saveBtn;
     #el_moveOnOpenCb;
     #el_saveOnCloseCb;
-    #el_keysCount;
-    #el_clearAllBtn;
 
     /**
      * @param {Window} win 
@@ -44,8 +42,6 @@ export class PluginUIController {
         this.#el_saveBtn = this.#win.document.getElementById('saveScrollBtn');
         this.#el_moveOnOpenCb = this.#win.document.getElementById('moveOnOpenCheckbox');
         this.#el_saveOnCloseCb = this.#win.document.getElementById('saveOnCloseCheckbox');
-        this.#el_keysCount = this.#win.document.getElementById('keysCount');
-        this.#el_clearAllBtn = this.#win.document.getElementById('clearAllBtn');
     }
 
     #bindEvents() {
@@ -69,8 +65,6 @@ export class PluginUIController {
             this.update();
         });
 
-        
-
         this.#el_moveOnOpenCb?.addEventListener('change', (e) => {
             this.#plugStore.setMoveByOpenFlag(e.target.checked);
             this.update();
@@ -80,16 +74,10 @@ export class PluginUIController {
             this.#plugStore.setSaveByCloseFlag(e.target.checked);
             this.update();
         });
-
-        this.#el_clearAllBtn?.addEventListener('click', () => {
-            this.#plugStore.clearAll();
-            this.update();
-        });
     }
 
     update() {
         this.updViewInfo();
-        this.updPlugStoreStats();
         this.updMoveOnOpenCheckbox();
         this.updSaveOnCloseCheckbox();
     }
@@ -121,12 +109,6 @@ export class PluginUIController {
         }
     }
 }
-
-    updPlugStoreStats() {
-        if (this.#el_keysCount) {
-            this.#el_keysCount.textContent = this.#plugStore.count();
-        }
-    }
 
     updMoveOnOpenCheckbox() {
         if (this.#el_moveOnOpenCb) {
