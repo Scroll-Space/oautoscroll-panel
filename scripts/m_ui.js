@@ -49,15 +49,15 @@ export class PluginUIController {
     #bindEvents() {
         // Используем стрелочные функции, чтобы не терять `this` класса
         this.#el_saveBtn?.addEventListener('click', () => {
-            let curScrollY = this.#editorCtrl.getScrollY();
-            this.#plugStore.saveScroll(curScrollY);
+            let view = this.#editorCtrl.getView();
+            this.#plugStore.saveView(view);
             this.update();
         });
 
         this.#el_moveBtn?.addEventListener('click', () => {
 
-            let savedY = this.#plugStore.getScroll();
-            this.#editorCtrl.moveScroll(savedY);
+            let savedView = this.#plugStore.getView();
+            this.#editorCtrl.setView(savedView);
 
         });
 
@@ -78,22 +78,23 @@ export class PluginUIController {
     }
 
     update() {
-        this.updScrollInfo();
+        this.updViewInfo();
         this.updPlugStoreStats();
         this.updMoveOnOpenCheckbox();
         this.updSaveOnCloseCheckbox();
     }
 
-    updScrollInfo() {
+    updViewInfo() {
         if (!this.#el_message) return;
 
-        let scrollY = this.#plugStore.getScroll();
+        let savedView = this.#plugStore.getView();
 
-        if (scrollY === null) {
+        if (savedView === null) {
             this.#el_message.textContent = 'ℹ️ Документ открыт впервые. Сохраненная позиция не найдена.';
             this.#el_message.className = 'message info';
         } else {
-            this.#el_message.textContent = 'y : ' + scrollY;
+            let viewText = `x: ${savedView.x}\ny: ${savedView.y}\nzoom: ${savedView.zoom}%`;            
+            this.#el_message.textContent = viewText;
             this.#el_message.className = 'message success';
         }
     }

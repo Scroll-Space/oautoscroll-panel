@@ -108,11 +108,17 @@ body {
    4. ИНФОРМАЦИОННЫЕ СООБЩЕНИЯ
    ========================================================= */
 .message {
-    padding: 11px 12px;
-    margin-bottom: 12px;
-    border-radius: 4px;
-    font-size: 13px;
-    line-height: 1.45;
+    box-sizing: border-box;
+    /* Фиксированная высота ровно под 3 строки с учетом padding */
+    min-height: 72px; 
+    height: 72px;
+    
+    white-space: pre-line;
+    display: flex;
+    align-items: center; /* Центрирует текст по вертикали, когда строка всего одна */
+    padding: 10px 14px;
+    border-radius: 6px;
+    overflow: hidden; /* Защита от вылезания текста */
 }
 
 .message.info {
