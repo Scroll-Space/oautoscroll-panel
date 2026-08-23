@@ -109,16 +109,18 @@ body {
    ========================================================= */
 .message {
     box-sizing: border-box;
-    /* Фиксированная высота ровно под 3 строки с учетом padding */
+    /* Фиксированная высота ровно под 3 строки */
     min-height: 72px; 
     height: 72px;
     
+    margin-bottom: 12px; /* <-- ДОБАВЛЕНО: Внешний отступ снизу до кнопки */
+    
     white-space: pre-line;
     display: flex;
-    align-items: center; /* Центрирует текст по вертикали, когда строка всего одна */
+    align-items: center; /* Центрирование по вертикали для 1-2 строк */
     padding: 10px 14px;
     border-radius: 6px;
-    overflow: hidden; /* Защита от вылезания текста */
+    overflow: hidden;
 }
 
 .message.info {
