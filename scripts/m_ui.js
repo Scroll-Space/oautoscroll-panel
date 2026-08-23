@@ -10,9 +10,10 @@ export class PluginUIController {
     #editorCtrl;
 
     // Кэш DOM-элементов
-    #el_message;
+    #el_viewCard;
+    #el_viewCardText;
+    #el_clearScrollBtn
     #el_saveBtn;
-    #el_moveBtn;
     #el_moveOnOpenCb;
     #el_saveOnCloseCb;
     #el_keysCount;
@@ -37,9 +38,10 @@ export class PluginUIController {
     }
 
     #cacheElements() {
-        this.#el_message = this.#win.document.getElementById('scrollInfoMessage');
+        this.#el_viewCard = this.#win.document.getElementById('viewCard');
+        this.#el_viewCardText = this.#win.document.getElementById('viewCardText');
+        this.#el_clearScrollBtn = this.#win.document.getElementById('clearScrollBtn');
         this.#el_saveBtn = this.#win.document.getElementById('saveScrollBtn');
-        this.#el_moveBtn = this.#win.document.getElementById('moveScrollBtn');
         this.#el_moveOnOpenCb = this.#win.document.getElementById('moveOnOpenCheckbox');
         this.#el_saveOnCloseCb = this.#win.document.getElementById('saveOnCloseCheckbox');
         this.#el_keysCount = this.#win.document.getElementById('keysCount');
@@ -47,6 +49,19 @@ export class PluginUIController {
     }
 
     #bindEvents() {
+
+        this.#el_clearScrollBtn?.addEventListener('click', () => {
+            this.#plugStore.removeView()
+            this.update();
+
+        });
+
+        this.#el_viewCard?.addEventListener('click', () => {
+            let savedView = this.#plugStore.getView();
+            this.#editorCtrl.setView(savedView);
+
+        });
+
         // Используем стрелочные функции, чтобы не терять `this` класса
         this.#el_saveBtn?.addEventListener('click', () => {
             let view = this.#editorCtrl.getView();
@@ -54,12 +69,7 @@ export class PluginUIController {
             this.update();
         });
 
-        this.#el_moveBtn?.addEventListener('click', () => {
-
-            let savedView = this.#plugStore.getView();
-            this.#editorCtrl.setView(savedView);
-
-        });
+        
 
         this.#el_moveOnOpenCb?.addEventListener('change', (e) => {
             this.#plugStore.setMoveByOpenFlag(e.target.checked);
@@ -85,19 +95,32 @@ export class PluginUIController {
     }
 
     updViewInfo() {
-        if (!this.#el_message) return;
+    if (!this.#el_viewCard || !this.#el_viewCardText) return;
 
-        let savedView = this.#plugStore.getView();
+    const savedView = this.#plugStore.getView();
 
-        if (savedView === null) {
-            this.#el_message.textContent = 'ℹ️ Документ открыт впервые. Сохраненная позиция не найдена.';
-            this.#el_message.className = 'message info';
-        } else {
-            let viewText = `x: ${savedView.x}\ny: ${savedView.y}\nzoom: ${savedView.zoom}%`;            
-            this.#el_message.textContent = viewText;
-            this.#el_message.className = 'message success';
+    if (!savedView) {
+        this.#el_viewCardText.textContent = 'Документ открыт впервые, сохраненная позиция не найдена';
+        this.#el_viewCard.classList.add('disabled');
+
+        // Делаем кнопку невидимой, но оставляем место под нее
+        if (this.#el_clearScrollBtn) {
+            this.#el_clearScrollBtn.disabled = true;
+        }
+    } else {
+        this.#el_viewCard.classList.remove('disabled');
+        this.#el_viewCardText.innerHTML = `
+            <div>x: <span class="val">${savedView.x}</span></div>
+            <div>y: <span class="val">${savedView.y}</span></div>
+            <div>zoom: <span class="val">${savedView.zoom}%</span></div>
+        `;
+
+        // Показываем кнопку
+        if (this.#el_clearScrollBtn) {
+            this.#el_clearScrollBtn.disabled = false;
         }
     }
+}
 
     updPlugStoreStats() {
         if (this.#el_keysCount) {
