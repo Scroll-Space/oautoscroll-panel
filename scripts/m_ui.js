@@ -16,6 +16,7 @@ export class PluginUIController {
     #el_saveBtn;
     #el_moveOnOpenCb;
     #el_saveOnCloseCb;
+    #el_clearAllBtn;
 
     /**
      * @param {Window} win 
@@ -42,6 +43,7 @@ export class PluginUIController {
         this.#el_saveBtn = this.#win.document.getElementById('saveScrollBtn');
         this.#el_moveOnOpenCb = this.#win.document.getElementById('moveOnOpenCheckbox');
         this.#el_saveOnCloseCb = this.#win.document.getElementById('saveOnCloseCheckbox');
+        this.#el_clearAllBtn = this.#win.document.getElementById("clearAllBtn");
     }
 
     #bindEvents() {
@@ -72,6 +74,12 @@ export class PluginUIController {
 
         this.#el_saveOnCloseCb?.addEventListener('change', (e) => {
             this.#plugStore.setSaveByCloseFlag(e.target.checked);
+            this.update();
+        });
+
+        // Используем стрелочные функции, чтобы не терять `this` класса
+        this.#el_clearAllBtn?.addEventListener('click', () => {
+            this.#plugStore.clearAll();
             this.update();
         });
     }
