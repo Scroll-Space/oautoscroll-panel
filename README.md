@@ -1,7 +1,37 @@
 # oautoscroll-panel
 Панельный ONLYOFFICE плагин управления перемоткой позиции в документе
 
-## 1. Установка зависимостей для режима разработки
+# 1. Установка в обычном режиме без возможности редактирвоания
+## 1.1 Установка в linux
+Если папка ранее существовала удалим ее
+```bash
+rm -rf ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
+```
+
+Создайте папку в папке плагинов
+```bash
+mkdir -p ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
+```
+
+Скопируйте туда все файлы из текущей папки
+```bash
+cp -r . ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}/
+```
+
+## 1.2 Установка в windows
+Если папка ранее существовала удалим ее
+```powershell
+Remove-Item -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Recurse -Force
+```
+
+Скопируйте туда все файлы из текущей папки
+```powershell
+Copy-Item -Path ".\*" -Destination "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Recurse
+```
+
+# 2. Разработка на linux
+## 2.1 Настройка зависимостей
+Для вашей версии linux установите `bindfs`:
 * __Ubuntu / Debian / Mint__
 ```console
 sudo apt install bindfs
@@ -17,24 +47,32 @@ sudo dnf install bindfs
 yay -S bindfs
 ```
 
-## 2. Настройка для FUSE для правильного монтирования
-Расскомментируется строку с `#user_allow_other`
+Дальше для правильной работы `bindfs` необходимо в настройках fusr раскомментировать строку с Расскомментируется строку с `#user_allow_other`
 ```bash
 sudo nano /etc/fuse.conf
 ```
 
-## 3. Установка плагина в режиме разработки
-Создание папки в директории с плагинами
+## 2.2 Создание папки в директории с плагинами
 ```bash
 mkdir -p ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
 ```
 
-Монтирование текущей папки разработки с папкой плагина
+## 2.3 Монтирование текущей папки разработки с папкой плагина
 ```bash
 bindfs --resolve-symlinks $PWD ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
 ```
 
-## 4. Удаление плагина
+## 2.4 Удаление плагина в режиме разработчика
 ```bash
 sudo umount ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
+```
+
+# 3. Разработка на windows
+## 3.1 Создание символьной ссылки
+```powershell
+New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Target (Get-Location).Path
+```
+## 3.2 Удаление плагина в режиме разработчика
+```powershell
+New-Item -ItemType SymbolicLink -Path Remove-Item "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Force
 ```
