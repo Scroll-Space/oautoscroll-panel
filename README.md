@@ -74,5 +74,5 @@ New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEdito
 ```
 ## 3.2 Удаление плагина в режиме разработчика
 ```powershell
-New-Item -ItemType SymbolicLink -Path Remove-Item "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Force
+Remove-Item "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Force
 ```
