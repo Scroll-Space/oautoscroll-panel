@@ -57,11 +57,10 @@ export class PluginUIController {
         this.#el_viewCard?.addEventListener('click', () => {
             let savedView = this.#plugStore.getView();
             this.#editorCtrl.setView(savedView);
-
         });
 
         // Используем стрелочные функции, чтобы не терять `this` класса
-        this.#el_saveBtn?.addEventListener('click', () => {
+        this.#el_saveBtn?.addEventListener('click', async () => {
             let view = this.#editorCtrl.getView();
             this.#plugStore.saveView(view);
             this.update();
@@ -106,8 +105,8 @@ export class PluginUIController {
     } else {
         this.#el_viewCard.classList.remove('disabled');
         this.#el_viewCardText.innerHTML = `
-            <div>x: <span class="val">${savedView.x}</span></div>
-            <div>y: <span class="val">${savedView.y}</span></div>
+            <div>x: <span class="val">${Number(savedView.x).toFixed(2)}</span></div>
+            <div>y: <span class="val">${Number(savedView.y).toFixed(2)}</span></div>
             <div>zoom: <span class="val">${savedView.zoom}%</span></div>
         `;
 
