@@ -7,8 +7,8 @@
 git submodule update --init --recursive
 ```
 
-# 1. Установка в обычном режиме без возможности редактирвоания
-## 1.1 Установка в linux
+# 2. Установка в обычном режиме без возможности редактирвоания
+## 2.1 Установка в linux
 Если папка ранее существовала удалим ее
 ```bash
 rm -rf ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
@@ -24,7 +24,7 @@ mkdir -p ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4
 cp -r . ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}/
 ```
 
-## 1.2 Установка в windows
+## 2.2 Установка в windows
 Если папка ранее существовала удалим ее
 ```powershell
 Remove-Item -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Recurse -Force
@@ -35,8 +35,8 @@ Remove-Item -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugin
 Copy-Item -Path "." -Destination "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Recurse
 ```
 
-# 2. Разработка на linux
-## 2.1 Настройка зависимостей
+# 3. Разработка на linux
+## 3.1 Настройка зависимостей
 Для вашей версии linux установите `bindfs`:
 * __Ubuntu / Debian / Mint__
 ```console
@@ -58,27 +58,27 @@ yay -S bindfs
 sudo nano /etc/fuse.conf
 ```
 
-## 2.2 Создание папки в директории с плагинами
+## 3.2 Создание папки в директории с плагинами
 ```bash
 mkdir -p ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
 ```
 
-## 2.3 Монтирование текущей папки разработки с папкой плагина
+## 3.3 Монтирование текущей папки разработки с папкой плагина
 ```bash
 bindfs --resolve-symlinks $PWD ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
 ```
 
-## 2.4 Удаление плагина в режиме разработчика
+## 3.4 Удаление плагина в режиме разработчика
 ```bash
 sudo umount ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83ef-4074-b248-108d0634a4db}
 ```
 
-# 3. Разработка на windows
-## 3.1 Создание символьной ссылки
+# 4. Разработка на windows
+## 4.1 Создание символьной ссылки
 ```powershell
 cmd /c mklink /J "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" "$PWD"
 ```
-## 3.2 Удаление плагина в режиме разработчика
+## 4.2 Удаление плагина в режиме разработчика
 ```powershell
 Remove-Item "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Force
 ```
