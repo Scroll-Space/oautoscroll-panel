@@ -1,6 +1,12 @@
 # oautoscroll-panel
 Панельный ONLYOFFICE плагин управления перемоткой позиции в документе
 
+# 1. Предварительная настройка
+Скачайте и обновите сабмодули через команду:
+```сonsole
+git submodule update --init --recursive
+```
+
 # 1. Установка в обычном режиме без возможности редактирвоания
 ## 1.1 Установка в linux
 Если папка ранее существовала удалим ее
@@ -26,7 +32,7 @@ Remove-Item -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugin
 
 Скопируйте туда все файлы из текущей папки
 ```powershell
-Copy-Item -Path ".\*" -Destination "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Recurse
+Copy-Item -Path "." -Destination "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Recurse
 ```
 
 # 2. Разработка на linux
@@ -70,7 +76,7 @@ sudo umount ~/.local/share/onlyoffice/desktopeditors/sdkjs-plugins/{ca39b178-83e
 # 3. Разработка на windows
 ## 3.1 Создание символьной ссылки
 ```powershell
-New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" -Target (Get-Location).Path
+cmd /c mklink /J "$env:LOCALAPPDATA\ONLYOFFICE\DesktopEditors\data\sdkjs-plugins\{ca39b178-83ef-4074-b248-108d0634a4db}" "$PWD"
 ```
 ## 3.2 Удаление плагина в режиме разработчика
 ```powershell
