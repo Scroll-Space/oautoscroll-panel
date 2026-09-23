@@ -2,14 +2,34 @@
   "name": "OAutoScroll Panel",
   "guid": "asc.{ca39b178-83ef-4074-b248-108d0634a4db}",
   "version": "1.0.0",
+  "offered": "Jhon Titor",
+
   "variations": [
     {
       "description": "OAutoScroll Panel",
       "url": "index.html",
-      "icons": "resources/icon.svg",
+      "icons": "resources/icons/icon.svg",
       "isViewer": true,
       "EditorsSupport": ["pdf"],
-      "type": "panel"
+      "type": "panel",
+
+      "store": {
+				"background": {
+					"light" : "#726868",
+					"dark" : "#726868"
+				},
+        "icons"       : {
+					"light" : "resources/store/icons",
+					"dark"  : "resources/store/icons"
+				},
+				"screenshots" : [
+					"resources/store/screenshots/screen_1.png",
+					"resources/store/screenshots/screen_2.png"
+				],
+        
+
+				"categories": ["entertainment", "specAbilities"]
+			}
     }
   ]
 }
