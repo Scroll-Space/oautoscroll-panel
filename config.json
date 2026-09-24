@@ -1,35 +1,82 @@
 {
-  "name": "OAutoScroll Panel",
+  "name": "AScroll Panel",
   "guid": "asc.{ca39b178-83ef-4074-b248-108d0634a4db}",
   "version": "1.0.0",
   "offered": "Jhon Titor",
-
   "variations": [
     {
-      "description": "OAutoScroll Panel",
+      "description": "AScroll Panel",
       "url": "index.html",
-      "icons": "resources/icons/icon.svg",
+      "icons": [
+        "resources/icons/icon%scale%(default).%extension%(png|svg)"
+      ],
+      "icons2": [
+        {
+          "style": "light",
+          "100%": {
+            "normal": "resources/icons/icon.png"
+          },
+          "125%": {
+            "normal": "resources/icons/icon@1.25x.png"
+          },
+          "150%": {
+            "normal": "resources/icons/icon@1.5x.png"
+          },
+          "175%": {
+            "normal": "resources/icons/icon@1.75x.png"
+          },
+          "200%": {
+            "normal": "resources/icons/icon@2x.png"
+          },
+          "*": {
+            "normal": "resources/icons/icon.svg"
+          }
+        },
+        {
+          "style": "dark",
+          "100%": {
+            "normal": "resources/icons/icon.png"
+          },
+          "125%": {
+            "normal": "resources/icons/icon@1.25x.png"
+          },
+          "150%": {
+            "normal": "resources/icons/icon@1.5x.png"
+          },
+          "175%": {
+            "normal": "resources/icons/icon@1.75x.png"
+          },
+          "200%": {
+            "normal": "resources/icons/icon@2x.png"
+          },
+          "*": {
+            "normal": "resources/icons/icon.svg"
+          }
+        }
+      ],
       "isViewer": true,
-      "EditorsSupport": ["pdf"],
+      "EditorsSupport": [
+        "pdf"
+      ],
       "type": "panel",
-
       "store": {
-				"background": {
-					"light" : "#726868",
-					"dark" : "#726868"
-				},
-        "icons"       : {
-					"light" : "resources/store/icons",
-					"dark"  : "resources/store/icons"
-				},
-				"screenshots" : [
-					"resources/store/screenshots/screen_1.png",
-					"resources/store/screenshots/screen_2.png"
-				],
-        
-
-				"categories": ["entertainment", "specAbilities"]
-			}
+        "background": {
+          "light": "#726868",
+          "dark": "#726868"
+        },
+        "icons": {
+          "light": "resources/store/icons",
+          "dark": "resources/store/icons"
+        },
+        "screenshots": [
+          "resources/store/screenshots/screen_1.png",
+          "resources/store/screenshots/screen_2.png"
+        ],
+        "categories": [
+          "work",
+          "specAbilities"
+        ]
+      }
     }
   ]
 }
