@@ -9,19 +9,26 @@ export class PluginUIController {
     /** @type {EditorController} */
     #editorCtrl;
 
-    // Кэш DOM-элементов
+    // Cache of DOM elements
     #el_viewCard;
-    #el_viewCardText;
-    #el_clearScrollBtn
+    #el_clearPositionBtn
     #el_saveBtn;
     #el_moveOnOpenCb;
     #el_saveOnCloseCb;
     #el_clearAllBtn;
 
+    #text_viewCard;
+    #text_clearPositionBtn;
+    #text_savePositionBtn;
+    #text_pluginSettings;
+    #text_moveOnOpenCheckbox;
+    #text_saveOnCloseCheckbox;
+    #text_clearAllBtn;
+
     /**
      * @param {Window} win 
-     * @param {PluginStorage} plugStore - Обязательное хранилище
-     * @param {EditorController} editorCtrl - Контроллер редактора
+     * @param {PluginStorage} plugStore - A wrapper object over localStorage
+     * @param {EditorController} editorCtrl - A controller for managing the editor
      */
     constructor(win, plugStore, editorCtrl) {
         this.#win = win;
@@ -29,7 +36,7 @@ export class PluginUIController {
         this.#editorCtrl = editorCtrl;
     }
 
-    // Инициализация UI: ищем элементы и привязываем события
+    // Initialization of UI: searching for elements and binding events
     initUI() {
         this.#cacheElements();
         this.#bindEvents();
@@ -38,17 +45,26 @@ export class PluginUIController {
 
     #cacheElements() {
         this.#el_viewCard = this.#win.document.getElementById('viewCard');
-        this.#el_viewCardText = this.#win.document.getElementById('viewCardText');
-        this.#el_clearScrollBtn = this.#win.document.getElementById('clearScrollBtn');
-        this.#el_saveBtn = this.#win.document.getElementById('saveScrollBtn');
+        this.#el_clearPositionBtn = this.#win.document.getElementById('clearPositionBtn');
+        this.#el_saveBtn = this.#win.document.getElementById('savePositionBtn');
         this.#el_moveOnOpenCb = this.#win.document.getElementById('moveOnOpenCheckbox');
         this.#el_saveOnCloseCb = this.#win.document.getElementById('saveOnCloseCheckbox');
         this.#el_clearAllBtn = this.#win.document.getElementById("clearAllBtn");
+
+
+        this.#text_viewCard = this.#win.document.getElementById('text_viewCard');
+        this.#text_clearPositionBtn = this.#win.document.getElementById('text_clearPositionBtn');
+        this.#text_savePositionBtn = this.#win.document.getElementById('text_savePositionBtn');
+        this.#text_pluginSettings = this.#win.document.getElementById('text_pluginSettings');
+        this.#text_moveOnOpenCheckbox = this.#win.document.getElementById('text_moveOnOpenCheckbox');
+        this.#text_saveOnCloseCheckbox = this.#win.document.getElementById('text_saveOnCloseCheckbox');
+        this.#text_clearAllBtn = this.#win.document.getElementById('text_clearAllBtn');
     }
 
     #bindEvents() {
+        // Use arrow functions so as not to lose the `this` of the class.
 
-        this.#el_clearScrollBtn?.addEventListener('click', () => {
+        this.#el_clearPositionBtn?.addEventListener('click', () => {
             this.#plugStore.removeView()
             this.update();
 
@@ -59,7 +75,6 @@ export class PluginUIController {
             this.#editorCtrl.setView(savedView);
         });
 
-        // Используем стрелочные функции, чтобы не терять `this` класса
         this.#el_saveBtn?.addEventListener('click', async () => {
             let view = this.#editorCtrl.getView();
             this.#plugStore.saveView(view);
@@ -76,7 +91,6 @@ export class PluginUIController {
             this.update();
         });
 
-        // Используем стрелочные функции, чтобы не терять `this` класса
         this.#el_clearAllBtn?.addEventListener('click', () => {
             this.#plugStore.clearAll();
             this.update();
@@ -89,33 +103,66 @@ export class PluginUIController {
         this.updSaveOnCloseCheckbox();
     }
 
-    updViewInfo() {
-    if (!this.#el_viewCard || !this.#el_viewCardText) return;
+    #tr(key, fallbackText) {
+        const translation = this.#win.Asc.plugin.tr(key);
+        // If the translation is not found, ONLYOFFICE returns the `key` itself.
+        return (!translation || translation === key) ? fallbackText : translation;
+    }
 
-    const savedView = this.#plugStore.getView();
+    translate() {
+        // Update all text elements with translations
 
-    if (!savedView) {
-        this.#el_viewCardText.textContent = 'Документ открыт впервые, сохраненная позиция не найдена';
-        this.#el_viewCard.classList.add('disabled');
+        // update text_viewCard
+        this.updViewInfo();
 
-        // Делаем кнопку невидимой, но оставляем место под нее
-        if (this.#el_clearScrollBtn) {
-            this.#el_clearScrollBtn.disabled = true;
+
+        if (this.#text_clearPositionBtn) {
+            this.#text_clearPositionBtn.innerHTML = this.#tr("text_clearPositionBtn", "Clear position");
         }
-    } else {
-        this.#el_viewCard.classList.remove('disabled');
-        this.#el_viewCardText.innerHTML = `
+        if (this.#text_savePositionBtn) {
+            this.#text_savePositionBtn.innerHTML = this.#tr("text_savePositionBtn", "Save position");
+        }
+        if (this.#text_pluginSettings) {
+            this.#text_pluginSettings.innerHTML = this.#tr("text_pluginSettings", "PLUGIN SETTINGS");
+        }
+        if (this.#text_moveOnOpenCheckbox) {
+            this.#text_moveOnOpenCheckbox.innerHTML = this.#tr("text_moveOnOpenCheckbox", "Go to saved position on open");
+        }
+        if (this.#text_saveOnCloseCheckbox) {
+            this.#text_saveOnCloseCheckbox.innerHTML = this.#tr("text_saveOnCloseCheckbox", "Save position on close");
+        }
+        if (this.#text_clearAllBtn) {
+            this.#text_clearAllBtn.innerHTML = this.#tr("text_clearAllBtn", "Clear all");
+        }
+    }
+
+    updViewInfo() {
+        if (!this.#el_viewCard || !this.#text_viewCard) return;
+
+        const savedView = this.#plugStore.getView();
+
+        if (!savedView) {
+            this.#text_viewCard.innerHTML = this.#tr("text_viewCard", "Document opened for the first time, saved position not found");
+            this.#el_viewCard.classList.add('disabled');
+
+            // Make the button invisible, but leave space for it
+            if (this.#el_clearPositionBtn) {
+                this.#el_clearPositionBtn.disabled = true;
+            }
+        } else {
+            this.#el_viewCard.classList.remove('disabled');
+            this.#text_viewCard.innerHTML = `
             <div>x: <span class="val">${Number(savedView.x).toFixed(2)}</span></div>
             <div>y: <span class="val">${Number(savedView.y).toFixed(2)}</span></div>
             <div>zoom: <span class="val">${savedView.zoom}%</span></div>
         `;
 
-        // Показываем кнопку
-        if (this.#el_clearScrollBtn) {
-            this.#el_clearScrollBtn.disabled = false;
+            // Show the button
+            if (this.#el_clearPositionBtn) {
+                this.#el_clearPositionBtn.disabled = false;
+            }
         }
     }
-}
 
     updMoveOnOpenCheckbox() {
         if (this.#el_moveOnOpenCb) {

@@ -10,11 +10,11 @@ window.Asc.plugin.init = function () {
     uiCtrl.initUI();
 };
 
-// 2. Глобальный перехват смены темы от редактора ONLYOFFICE
+// 2. Global interception of theme changes from the ONLYOFFICE editor
 window.Asc.plugin.onThemeChanged = function (theme) {
     if (!theme) return;
 
-    // Вызываем базовое обновление SDK ONLYOFFICE (оно обновляет переменные plugins.css)
+    // call the basic SDK update ONLYOFFICE (it updates the plugins.css variables)
     if (typeof window.Asc.plugin.onThemeChangedBase === "function") {
         window.Asc.plugin.onThemeChangedBase(theme);
     }
@@ -28,4 +28,8 @@ window.Asc.plugin.onThemeChanged = function (theme) {
         document.documentElement.removeAttribute("data-theme");
         document.body.removeAttribute("data-theme");
     }
+};
+
+window.Asc.plugin.onTranslate = () => {
+    uiCtrl.translate();
 };
