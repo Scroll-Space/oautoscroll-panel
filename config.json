@@ -15,9 +15,10 @@
     "it": "Scroll Panel",
     "ar-SA": "Scroll Panel"
   },
+  "offered": "Jhon Titor",
   "guid": "asc.{ca39b178-83ef-4074-b248-108d0634a4db}",
   "version": "1.0.0",
-  "offered": "Jhon Titor",
+  "minVersion": "9.3.0",
   "variations": [
     {
       "description": "The PDF document scrolling control panel. Provides navigation to the required position by the visibility area coordinates and scale. Also provides additional settings for the Scroll Backend plugin.",
