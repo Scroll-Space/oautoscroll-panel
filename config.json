@@ -100,6 +100,7 @@
           "dark": "resources/store/icons"
         },
         "screenshots": [
+          "resources/store/screenshots/short_description.png",
           "resources/store/screenshots/screen_light.png",
           "resources/store/screenshots/screen_dark.png"
         ],
